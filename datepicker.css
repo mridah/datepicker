@@ -10,6 +10,7 @@
 	position: absolute;
 	display: none;
 	outline: none;
+	margin-top: 12px; /* margin should be equal to `.up-tip` border */
 	-moz-user-select: none;
 	user-select: none;
 	-webkit-user-select: none;
@@ -20,6 +21,18 @@
 .date-picker .header {
 	height: 35px;
 	background: #008080;
+}
+
+.date-picker .up-tip {
+	position: absolute;
+	left: 12px;
+	top: -12px;
+	z-index: 5;
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-bottom: 12px solid #008080;
 }
 
 .date-picker .header .left {

@@ -36,7 +36,8 @@
 			'October', 'November', 'December'];
 		var dayList = ['S', 'M', 'T', 'W', 'Th', 'F', 'Sa'];
 		var dayMap = {'Sun': 1, 'Mon': 2, 'Tue': 3, 'Wed': 4, 'Thu': 5, 'Fri': 6, 'Sat': 7};
-		var datepicker = $(`<div class="broomberg-d-p date-picker" tabindex="0" style="display: none;"></div>`);
+		var datepicker = $(`<div class="broomberg-d-p date-picker" tabindex="0" style="display: none;">
+			<span class="up-tip"></span></div>`);
 		var datepickerHeader = $(`<div class="header"></div>`);
 		var mainContent = $(`<div class="main-content"><div class="m-c-items date-selector"><div class="days"></div>
 			<div class="dates"></div><div class="ok-button"><span>OK</span></div></div>
