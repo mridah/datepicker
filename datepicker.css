@@ -248,13 +248,14 @@
 }
 
 
-.date-picker .main-content .date-selector .ok-button {
+.date-picker .main-content .date-selector .footer-buttons {
 	position: relative;
+	margin-top: -2px;
 }
 
-.date-picker .main-content .date-selector .ok-button span {
+.date-picker .main-content .date-selector .footer-buttons .ok-button {
 	position: relative;
-	left: 206px;
+	left: 124px;
 	font-family: monospace;
 	cursor: pointer;
 	padding: 5px;
@@ -265,6 +266,227 @@
 }
 
 
-.date-picker .main-content .date-selector .ok-button span:hover {
+.date-picker .main-content .date-selector .footer-buttons .ok-button:hover,
+.date-picker .main-content .time-selector .back-to-calendar:hover {
 	background: #DCDCDC;
+}
+
+
+.date-picker .main-content .time-selector .back-to-calendar {
+	position: relative;
+	left: 9px;
+	top: 51px;
+	font-family: monospace;
+	cursor: pointer;
+	padding: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	color: #008080;
+	font-weight: bold;
+}
+
+
+.date-picker .main-content .date-selector .footer-buttons .set-time-button {
+	position: relative;
+	left: 83px;
+	font-family: monospace;
+	cursor: pointer;
+	padding: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	color: #008080;
+	font-weight: bold;
+}
+
+
+
+.date-picker .main-content .time-selector .select-hours-container{
+	width: 69px;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.date-picker .main-content .time-selector .select-minutes-container{
+	width: 69px;
+	overflow: hidden;
+	display: inline-block;
+	margin-left: 12px;
+}
+
+
+.date-picker .main-content .time-selector .select-hours{
+	border: 1px solid #111;
+	background: transparent;
+	width: 71px;
+	padding: 5px 8px 5px 5px;
+	font-family: monospace;
+	margin-top: 41px;
+	font-size: 16px;
+	overflow-y: scroll;
+	border: 0;
+	height: 86px;
+	-webkit-appearance: none;
+}
+
+
+.date-picker .main-content .time-selector .select-minutes{
+	border: 1px solid #111;
+	background: transparent;
+	width: 71px;
+	padding: 5px 8px 5px 5px;
+	font-family: monospace;
+	margin-top: 41px;
+	font-size: 16px;
+	overflow-y: scroll;
+	border: 0;
+	height: 86px;
+	-webkit-appearance: none;
+}
+
+.date-picker .main-content .time-selector .select-hours .hour {
+	text-align: center;
+	cursor: pointer;
+}
+
+.date-picker .main-content .time-selector .select-hours .selected {
+	font-weight: bold;
+	font-size: 22px;
+	color: #008080;
+}
+
+
+.date-picker .main-content .time-selector .select-minutes .minute {
+	text-align: center;
+	cursor: pointer;
+}
+
+.date-picker .main-content .time-selector .select-minutes .selected {
+	font-weight: bold;
+	font-size: 22px;
+	color: #008080;
+}
+
+.date-picker .main-content .time-selector .select-hours .hour:hover{
+	background: #D3D3D3;
+}
+
+
+.date-picker .main-content .time-selector .select-minutes .minute:hover{
+	background: #D3D3D3;
+}
+
+
+.date-picker .main-content .time-selector .up-arrow-small-hours {
+	position: absolute;
+	left: 23px;
+	top: 58px;
+	z-index: 5;
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-bottom: 12px solid #008080;
+}
+
+
+.date-picker .main-content .time-selector .down-arrow-small-hours {
+	position: absolute;
+	left: 23px;
+	top: 178px;
+	z-index: 5;
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-top: 12px solid #008080;
+}
+
+
+.date-picker .main-content .time-selector .up-arrow-small-minutes {
+	position: absolute;
+	left: 107px;
+	top: 58px;
+	z-index: 5;
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-bottom: 12px solid #008080;
+}
+
+
+.date-picker .main-content .time-selector .down-arrow-small-minutes {
+	position: absolute;
+	left: 107px;
+	top: 178px;
+	z-index: 5;
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-top: 12px solid #008080;
+}
+
+
+.date-picker .main-content .time-selector .up-arrow-small-hours:hover,
+.date-picker .main-content .time-selector .up-arrow-small-minutes:hover {
+	border-bottom: 12px solid grey;
+}
+
+.date-picker .main-content .time-selector .down-arrow-small-hours:hover,
+.date-picker .main-content .time-selector .down-arrow-small-minutes:hover {
+	border-top: 12px solid grey;
+}
+
+
+.date-picker .main-content .time-selector .minutes-footer {
+	margin-top: 27px;
+	position: absolute;
+	left: 105px;
+	font-family: monospace;
+}
+
+
+.date-picker .main-content .time-selector .hour-footer {
+	margin-top: 27px;
+	position: absolute;
+	left: 14px;
+	font-family: monospace;
+}
+
+
+.date-picker .main-content .time-selector .am-pm-container {
+	display: inline-block;
+	margin-left: 33px;
+}
+
+
+.date-picker .main-content .time-selector .am-mode-select {
+	margin-top: -84px;
+	position: absolute;
+	font-family: monospace;
+	font-size: 14px;
+	background: #C0C0C0;
+	padding: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	cursor: pointer;
+}
+
+
+.date-picker .main-content .time-selector .pm-mode-select {
+	margin-top: -25px;
+	position: absolute;
+	font-family: monospace;
+	font-size: 14px;
+	background: #C0C0C0;
+	padding: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	cursor: pointer;
+}
+
+.date-picker .main-content .time-selector .am-pm-container .selected {
+	background: #20B2AA;
+	color: #ffffff;
 }
