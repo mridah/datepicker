@@ -1,7 +1,11 @@
 /*!
- *  Elite Date Picker v2.0.0
+ *  Elite Date Picker v2.0.3
  *
- * Author: Mridul Ahuja
+ *  Author: Mridul Ahuja
+ *
+ *  Github: https://github.com/mridah/datepicker
+ *
+ *  License: MIT
  */
 
 
@@ -14,7 +18,8 @@
 			if(params !== 'destroy') { /* initialize */
 				var defaults = {
 					format: 'Y-m-d',
-					time: false
+					time: false,
+					disableTyping: false
 				};
 
 				params = $.extend(defaults, params);
@@ -37,7 +42,7 @@
 			'October', 'November', 'December'];
 		var dayList = ['S', 'M', 'T', 'W', 'Th', 'F', 'Sa'];
 		var dayMap = {'Sun': 1, 'Mon': 2, 'Tue': 3, 'Wed': 4, 'Thu': 5, 'Fri': 6, 'Sat': 7};
-		var datepicker = $(`<div class="mr-elite-d-p date-picker" tabindex="0" style="display: none;">
+		var datepicker = $(`<div class="mr-elite-d-p date-picker" tabindex="-1" style="display: none;">
 			<span class="up-tip"></span></div>`);
 		var datepickerHeader = $(`<div class="header"></div>`);
 		var mainContent = $(`<div class="main-content"><div class="m-c-items date-selector"><div class="days"></div>
@@ -248,6 +253,8 @@
 		var read_time = () => {
 			mainContent.find(`.time-selector .select-hours .hour`).removeClass('selected');
 			mainContent.find(`.time-selector .select-minutes .minute`).removeClass('selected');
+
+			setTime = dateInput.val().substr(11, 19);
 
 			var timeString = dateInput.val().split(' ');
 			var timeStringSplit = timeString[1].split(':');
@@ -554,15 +561,27 @@
 
 		dateInput.keydown(function(e) {
 			var code = e.keyCode || e.which;
-			if (code == '9') { /* tab pressed */
+			if (code === 9) { /* tab pressed */
 				$('.mr-elite-d-p').fadeOut();
+				return true;
+			}
+
+			if(params.disableTyping) {
+				return false;
 			}
 		});
 
 
+		if(params.disableTyping) {
+			dateInput.bind("paste",function(e) {
+				e.preventDefault();
+			});
+		}
+
+
 		datepicker.bind('keydown', function(e) {
 			var code = e.keyCode || e.which;
-			if (code == '9') { /* tab pressed */
+			if (code === 9) { /* tab pressed */
 				$('.mr-elite-d-p').fadeOut();
 			}
 		});
