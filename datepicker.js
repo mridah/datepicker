@@ -46,7 +46,7 @@
 			<span class="up-tip"></span></div>`);
 		var datepickerHeader = $(`<div class="header"></div>`);
 		var mainContent = $(`<div class="main-content"><div class="m-c-items date-selector"><div class="days"></div>
-			<div class="dates"></div><div class="footer-buttons"><span class="set-time-button">Set Time</span>
+			<div class="elite-dp-dates"></div><div class="footer-buttons"><span class="set-time-button">Set Time</span>
 			<span class="ok-button">OK</span></div></div><div class="m-c-items month-selector"></div>
 			<div class="m-c-items year-selector"></div><div class="m-c-items time-selector"></div></div>`);
 		var monthSelectorButton;
@@ -161,7 +161,7 @@
 
 		var create_dates = (month = undefined, year = undefined) => {
 			monthFirstDate = new Date(currentMonthSelected + '-01-' + currentYearSelected);
-			var datesContainer = mainContent.find(`.date-selector .dates`);
+			var datesContainer = mainContent.find(`.date-selector .elite-dp-dates`);
 			var i;
 			var firstDay = monthFirstDate.toString().substr(0,3);
 			var d;
@@ -186,7 +186,7 @@
 
 
 		var select_selected_date = () => {
-			var selectedDate = mainContent.find(`.dates .date`);
+			var selectedDate = mainContent.find(`.elite-dp-dates .date`);
 
 			selectedDate = selectedDate.filter(function(){
 				return $(this).text() == datepickerHeader.find(`.date`).text();
@@ -200,7 +200,7 @@
 					.toString().substr(0,3) );
 			}
 			else {
-				var toSel = mainContent.find(`.dates .date:last-child`);
+				var toSel = mainContent.find(`.elite-dp-dates .date:last-child`);
 				datepickerHeader.find(`.date`).text(toSel.text());
 				currentDateSelected = toSel.text();
 				toSel.addClass('selected');
@@ -528,6 +528,7 @@
 		/* input box handlers */
 
 		dateInput.focus((e) => {
+			$(`.mr-elite-d-p`).css('display', 'none');
 			var datepicker = $(e.currentTarget).next();
 			datepicker.css('left', dateInput.get(0).offsetLeft);
 
@@ -671,6 +672,7 @@
 		okButton.click(() => {
 			dateInput.val(get_new_date());
 			$('.mr-elite-d-p').fadeOut();
+			dateInput.trigger('change');
 		});
 
 
