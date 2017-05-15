@@ -1,5 +1,5 @@
 /*!
- *  Elite Date Picker v2.0.5
+ *  Elite Date Picker v2.0.6
  *
  *  Author: Mridul Ahuja
  *
