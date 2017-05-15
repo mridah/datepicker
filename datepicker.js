@@ -27,7 +27,7 @@
 				dateInput.each(function(){
 					generate_datepicker($(this), selector, params);
 				});
-				
+
 			}
 			else { /* destroy */
 				destroy_datepicker(dateInput);
@@ -71,6 +71,7 @@
 		var setTimeButton;
 		var setTime;
 		var okButton;
+		var curInputVal;
 
 
 		/*
@@ -254,7 +255,7 @@
 			mainContent.find(`.time-selector .select-hours .hour`).removeClass('selected');
 			mainContent.find(`.time-selector .select-minutes .minute`).removeClass('selected');
 
-			var dateInputVal = dateInput.val();
+			var dateInputVal = curInputVal;
 
 			setTime = dateInputVal.substr(11, 19);
 
@@ -263,20 +264,53 @@
 			var hour;
 			var min;
 			var ampm = 0;
+			var timeFormat = params.format.substr(6, 11) == 'h:i:a' ? 12 : 24;
 
-			if(dateInputVal) {
+			if(is_valid_date(dateInputVal)) {
 				timeString = dateInputVal.split(' ');
-				timeStringSplit = timeString[1].split(':');
-				hour = parseInt(timeStringSplit[0]);
-				min = parseInt(timeStringSplit[1]);
+				if(timeString[1] !== undefined) {
+					timeStringSplit = timeString[1].split(':');
+					hour = parseInt(timeStringSplit[0]);
+					min = parseInt(timeStringSplit[1]);
+				}
+				else {
+					var d = new Date();
+					hour = d.getHours();
+					min = d.getMinutes();
+
+					if(timeFormat === 12) {
+
+					if(!hour) { /* if hour == 12 */
+						hour = 12;
+						setTime = '12:' + pad_date(min, 2) + ' PM';
+						ampm = 'PM';
+					}
+					else if(hour > 12) {
+						hour = (hour - 12);
+						setTime =  pad_date(hour, 2) + ':' + pad_date(min, 2) + ' PM';
+						ampm = 'PM';
+					}
+					else if(hour < 12) {
+						setTime = pad_date(hour, 2) + ':' + pad_date(min, 2) + ' AM';
+						ampm = 'AM';
+					}
+					else { /* if hour == 12 */
+						hour = 12;
+						setTime = '12:' + pad_date(min, 2) + ' PM';
+						ampm = 'AM';
+					}
+				}
+				else {
+					setTime = pad_date(hour, 2) + ':' + pad_date(min, 2) + ':00';
+				}
+				}
 			}
 			else {
 				var curDate = new Date();
 				hour = curDate.getHours();
 				min = curDate.getMinutes();
 
-				if(params.format.substr(6, 11) == 'h:i:a') {
-					var amMode;
+				if(timeFormat === 12) {
 
 					if(!hour) { /* if hour == 12 */
 						hour = 12;
@@ -306,7 +340,7 @@
 			var selectedHour;
 			var selectedMins;
 
-			if(params.format.substr(6, 11) == 'h:i:a') {
+			if(timeFormat === 12) {
 				if(!ampm)
 					ampm = timeString[2];
 				selectedHour = mainContent.find(`.time-selector .select-hours .hour`).filter(function(){
@@ -339,7 +373,7 @@
 					mainContent.find(`.time-selector .pm-mode-select`).addClass('selected');
 
 			}
-			else if(params.format.substr(6, 11) == 'h:i:s') {
+			else if(timeFormat === 24) {
 				mainContent.find(`.time-selector .am-pm`).removeClass('selected');
 
 				if(!parseInt(hour)) { /* 12 AM */
@@ -379,6 +413,17 @@
 					scrollTop: selectedMins.position().top - 100
 				}, 'fast');
 			}
+		}
+
+		function is_valid_date(date) {
+			var d = new Date(date);
+			var a = new Date(date) !== "Invalid Date" && !isNaN(d);
+			if(params.time) {
+				//if()
+
+			}
+
+			return a;
 		}
 
 
@@ -577,7 +622,9 @@
 			var datepicker = $(e.currentTarget).next();
 			datepicker.css('left', dateInput.get(0).offsetLeft);
 
-			inputboxDate = dateInput.val() ? dateInput.val() : new Date().toJSON().slice(0,10);
+			curInputVal = is_valid_date(dateInput.val()) ? dateInput.val() : new Date().toJSON().slice(0,10);
+
+			inputboxDate = curInputVal;
 
 			/* initializing datepicker with value from input */
 
