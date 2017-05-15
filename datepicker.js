@@ -254,18 +254,61 @@
 			mainContent.find(`.time-selector .select-hours .hour`).removeClass('selected');
 			mainContent.find(`.time-selector .select-minutes .minute`).removeClass('selected');
 
-			setTime = dateInput.val().substr(11, 19);
+			var dateInputVal = dateInput.val();
 
-			var timeString = dateInput.val().split(' ');
-			var timeStringSplit = timeString[1].split(':');
-			var hour = parseInt(timeStringSplit[0]);
-			var min = parseInt(timeStringSplit[1]);
-			
+			setTime = dateInputVal.substr(11, 19);
+
+			var timeString;
+			var timeStringSplit;
+			var hour;
+			var min;
+			var ampm = 0;
+
+			if(dateInputVal) {
+				timeString = dateInputVal.split(' ');
+				timeStringSplit = timeString[1].split(':');
+				hour = parseInt(timeStringSplit[0]);
+				min = parseInt(timeStringSplit[1]);
+			}
+			else {
+				var curDate = new Date();
+				hour = curDate.getHours();
+				min = curDate.getMinutes();
+
+				if(params.format.substr(6, 11) == 'h:i:a') {
+					var amMode;
+
+					if(!hour) { /* if hour == 12 */
+						hour = 12;
+						setTime = '12:' + pad_date(min, 2) + ' PM';
+						ampm = 'PM';
+					}
+					else if(hour > 12) {
+						hour = (hour - 12);
+						setTime =  pad_date(hour, 2) + ':' + pad_date(min, 2) + ' PM';
+						ampm = 'PM';
+					}
+					else if(hour < 12) {
+						setTime = pad_date(hour, 2) + ':' + pad_date(min, 2) + ' AM';
+						ampm = 'AM';
+					}
+					else { /* if hour == 12 */
+						hour = 12;
+						setTime = '12:' + pad_date(min, 2) + ' PM';
+						ampm = 'AM';
+					}
+				}
+				else {
+					setTime = pad_date(hour, 2) + ':' + pad_date(min, 2) + ':00';
+				}
+			}
+
 			var selectedHour;
 			var selectedMins;
 
 			if(params.format.substr(6, 11) == 'h:i:a') {
-				var ampm = timeString[2];
+				if(!ampm)
+					ampm = timeString[2];
 				selectedHour = mainContent.find(`.time-selector .select-hours .hour`).filter(function(){
 					return $(this).text() == hour;
 				});
@@ -397,7 +440,7 @@
 					`<div class="hour" hour="` + i + `"> ` + i + `</div>`
 				);
 			}
-			for(var i=1; i<60; i++) {
+			for(var i=0; i<60; i++) {
 				mainContent.find(`.time-selector .select-minutes`).append(
 					`<div class="minute" minute="` + i + `"> ` + i + `</div>`
 				);
@@ -529,6 +572,8 @@
 
 		dateInput.focus((e) => {
 			$(`.mr-elite-d-p`).css('display', 'none');
+			datepickerHeader.css('pointer-events', 'all');
+			datepickerHeader.css('cursor', 'default');
 			var datepicker = $(e.currentTarget).next();
 			datepicker.css('left', dateInput.get(0).offsetLeft);
 
@@ -661,6 +706,8 @@
 
 		setTimeButton.click(() => {
 			$('.main-content .m-c-items').hide();
+			datepickerHeader.css('pointer-events', 'none');
+			datepickerHeader.css('cursor', 'not-allowed');
 			mainContent.find(`.time-selector`).css('left', '200px').show();
 			mainContent.find(`.time-selector`).animate({left:0}, 200);
 			read_time();
@@ -771,6 +818,9 @@
 			mainContent.find('.m-c-items').hide();
 			mainContent.find(`.date-selector`).css('left', '-200px').show();
 			mainContent.find(`.date-selector`).animate({left:0}, 200);
+
+			datepickerHeader.css('pointer-events', 'all');
+			datepickerHeader.css('cursor', 'default');
 		});
 
 
