@@ -415,14 +415,9 @@
 			}
 		}
 
-		function is_valid_date(date) {
+		var is_valid_date = (date) => {
 			var d = new Date(date);
 			var a = new Date(date) !== "Invalid Date" && !isNaN(d);
-			if(params.time) {
-				//if()
-
-			}
-
 			return a;
 		}
 
