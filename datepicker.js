@@ -1,5 +1,5 @@
 /*!
- *  Elite Date Picker v2.0.6
+ *  Elite Date Picker v2.0.7
  *
  *  Author: Mridul Ahuja
  *
@@ -59,7 +59,7 @@
 		var hourSelector;
 		var minuteSelector;
 		var monthFirstDate = new Date();
-		var inputboxDate = dateInput.val() ? dateInput.val() : new Date().toJSON().slice(0,10);
+		var inputboxDate;
 		var inputboxDateFormatted;
 		var inpytboxDateSplit;
 		var prevButton;
@@ -280,29 +280,29 @@
 
 					if(timeFormat === 12) {
 
-					if(!hour) { /* if hour == 12 */
-						hour = 12;
-						setTime = '12:' + pad_date(min, 2) + ' PM';
-						ampm = 'PM';
+						if(!hour) { /* if hour == 12 */
+							hour = 12;
+							setTime = '12:' + pad_date(min, 2) + ' PM';
+							ampm = 'PM';
+						}
+						else if(hour > 12) {
+							hour = (hour - 12);
+							setTime =  pad_date(hour, 2) + ':' + pad_date(min, 2) + ' PM';
+							ampm = 'PM';
+						}
+						else if(hour < 12) {
+							setTime = pad_date(hour, 2) + ':' + pad_date(min, 2) + ' AM';
+							ampm = 'AM';
+						}
+						else { /* if hour == 12 */
+							hour = 12;
+							setTime = '12:' + pad_date(min, 2) + ' PM';
+							ampm = 'AM';
+						}
 					}
-					else if(hour > 12) {
-						hour = (hour - 12);
-						setTime =  pad_date(hour, 2) + ':' + pad_date(min, 2) + ' PM';
-						ampm = 'PM';
+					else {
+						setTime = pad_date(hour, 2) + ':' + pad_date(min, 2) + ':00';
 					}
-					else if(hour < 12) {
-						setTime = pad_date(hour, 2) + ':' + pad_date(min, 2) + ' AM';
-						ampm = 'AM';
-					}
-					else { /* if hour == 12 */
-						hour = 12;
-						setTime = '12:' + pad_date(min, 2) + ' PM';
-						ampm = 'AM';
-					}
-				}
-				else {
-					setTime = pad_date(hour, 2) + ':' + pad_date(min, 2) + ':00';
-				}
 				}
 			}
 			else {
@@ -425,6 +425,9 @@
 		/*
 			function declarations end here
 		*/
+
+		/* initializing input */
+		inputboxDate = is_valid_date(dateInput.val()) ? dateInput.val() : new Date().toJSON().slice(0,10);
 
 
 		datepickerHeader.append(`<div class="prev"><</div><div class="selected-date"></div><div class="next">></div>`);
