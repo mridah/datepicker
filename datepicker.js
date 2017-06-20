@@ -83,7 +83,7 @@
 		};
 
 
-		var format_date_Y_m_d = (date, format) => {console.log(date)
+		var format_date_Y_m_d = (date, format) => {
 			format = format.substr(0, 5);
 			var formattedDate;
 			date[0] = parseInt(date[0]);
