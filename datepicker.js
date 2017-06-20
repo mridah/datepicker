@@ -1,5 +1,5 @@
 /*!
- *  Elite Date Picker v2.0.7
+ *  Elite Date Picker v2.0.8
  *
  *  Author: Mridul Ahuja
  *
@@ -83,7 +83,7 @@
 		};
 
 
-		var format_date_Y_m_d = (date, format) => {
+		var format_date_Y_m_d = (date, format) => {console.log(date)
 			format = format.substr(0, 5);
 			var formattedDate;
 			date[0] = parseInt(date[0]);
@@ -161,7 +161,9 @@
 
 
 		var create_dates = (month = undefined, year = undefined) => {
-			monthFirstDate = new Date(currentMonthSelected + '-01-' + currentYearSelected);
+			/* using `/` instead of `-` since firefox doesn't support dates with `-` */
+			monthFirstDate = new Date(currentMonthSelected + '/01/' + currentYearSelected);
+
 			var datesContainer = mainContent.find(`.date-selector .elite-dp-dates`);
 			var i;
 			var firstDay = monthFirstDate.toString().substr(0,3);
@@ -221,7 +223,8 @@
 
 				inputboxDateFormatted = format_date_Y_m_d(inputboxDateSplit, params.format);
 
-				inputboxDateFormatted = new Date(inputboxDateFormatted)
+				inputboxDateFormatted = new Date(inputboxDateFormatted);
+
 				if(inputboxDateFormatted == 'Invalid Date') {
 					console.error('Invalid date encountered on `' + inputSelector + '`');
 					return;
